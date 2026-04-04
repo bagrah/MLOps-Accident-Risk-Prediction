@@ -33,3 +33,5 @@ if __name__ == "__main__":
     if df is not None:
         print("\nPreview data:")
         print(df.head())
+
+print(df.columns)

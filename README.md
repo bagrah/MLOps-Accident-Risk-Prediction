@@ -1,296 +1,103 @@
-# MLOps Accident Risk Prediction
+# 🚀 MLOps - Accident Risk Prediction (Los Angeles)
 
-## Project Overview
+## 📌 Deskripsi Proyek
+Proyek ini merupakan implementasi sistem MLOps untuk prediksi risiko kecelakaan lalu lintas berbasis data time-series. Dataset yang digunakan adalah US Accidents (2016–2023) dari Kaggle, dengan fokus pada wilayah Los Angeles.
 
-Proyek ini merupakan implementasi awal dari pipeline **Machine Learning Operations (MLOps)** untuk memprediksi tingkat risiko kecelakaan berdasarkan berbagai fitur yang berkaitan dengan kondisi pengemudi, kendaraan, dan lingkungan.
-
-Tujuan utama proyek ini adalah membangun **fondasi teknis proyek machine learning yang reproducible dan terstandarisasi**, sehingga eksperimen, pengembangan model, dan deployment dapat dilakukan secara konsisten oleh siapa pun yang bekerja pada repositori ini.
-
-Repositori ini juga dirancang untuk mengikuti praktik terbaik dalam pengembangan proyek machine learning modern, seperti:
-
-* penggunaan **GitHub Codespaces** untuk lingkungan pengembangan yang konsisten,
-* penerapan **GitHub Flow** untuk manajemen branch dan eksperimen,
-* penggunaan **struktur direktori standar industri** untuk proyek data science.
-
-Pada tahap awal ini, proyek difokuskan pada:
-
-* menyiapkan struktur proyek machine learning,
-* melakukan eksplorasi data awal (Exploratory Data Analysis / EDA),
-* membangun fondasi pipeline pengolahan data dan pelatihan model.
+Sistem ini dirancang untuk mensimulasikan data dinamis menggunakan pendekatan pembagian data berbasis waktu (bulanan), sehingga mendukung konsep Continual Learning.
 
 ---
 
-# Project Objectives
+## ⚙️ Arsitektur Pipeline
 
-Beberapa tujuan dari proyek ini antara lain:
+Pipeline yang dibangun:
 
-1. Membangun sistem prediksi risiko kecelakaan berbasis machine learning.
-2. Menerapkan praktik **MLOps** untuk memastikan proses pengembangan model dapat direproduksi.
-3. Menyediakan struktur proyek yang modular sehingga mudah dikembangkan.
-4. Memisahkan komponen data, fitur, model, dan inference secara jelas.
-5. Menggunakan GitHub sebagai pusat manajemen kode dan eksperimen.
+Kaggle Dataset → data/raw → ingestion → batch data → preprocessing → data/processed
 
 ---
 
-# Repository URL
+## 🔄 Data Ingestion (Dinamis)
 
-Repositori proyek dapat diakses melalui:
+Data diambil dari dataset statis dan disimulasikan menjadi dinamis dengan cara:
+- Membagi data berdasarkan waktu (Start_Time)
+- Mengambil data per bulan
+- Menyimpan hasil sebagai batch baru
 
-https://github.com/bagrah/MLOps-Accident-Risk-Prediction
+Contoh output:
+data/raw/batch/accidents_2016-06.csv
 
----
-
-# Development Environment
-
-Proyek ini menggunakan **GitHub Codespaces** sebagai lingkungan pengembangan utama.
-
-Codespaces memungkinkan developer menjalankan proyek secara langsung di cloud tanpa perlu melakukan instalasi lokal.
-
-Keuntungan menggunakan Codespaces:
-
-* lingkungan Python sudah terkonfigurasi
-* dependency dapat diinstal secara otomatis
-* proyek dapat dijalankan di perangkat mana pun
-* memudahkan kolaborasi tim
+Setiap eksekusi menghasilkan file baru (tidak overwrite).
 
 ---
 
-# How to Run the Project using GitHub Codespaces
+## 🧹 Data Preprocessing
 
-Ikuti langkah berikut untuk menjalankan proyek ini menggunakan Codespaces:
+Tahapan preprocessing meliputi:
+- Filtering data berdasarkan lokasi (Los Angeles)
+- Konversi tipe data waktu
+- Penyimpanan ke folder data/processed/
 
-### 1. Buka Repository
-
-Masuk ke halaman repository GitHub:
-
-https://github.com/bagrah/MLOps-Accident-Risk-Prediction
-
-### 2. Jalankan Codespaces
-
-Klik tombol:
-
-Code → Codespaces → Create codespace on main
-
-GitHub akan membuat environment development berbasis cloud.
-
-### 3. Tunggu Environment Siap
-
-Codespaces akan memuat:
-
-* VS Code environment
-* Python interpreter
-* terminal workspace
-
-### 4. Install Dependencies
-
-Jalankan perintah berikut pada terminal:
-
-pip install -r requirements.txt
-
-Library utama yang digunakan:
-
-* pandas
-* numpy
-* scikit-learn
-* matplotlib
-* jupyter
-
-### 5. Jalankan Notebook
-
-Buka folder:
-
-notebooks
-
-Lalu jalankan file:
-
-eda.ipynb
-
-Notebook ini digunakan untuk melakukan **exploratory data analysis (EDA)** pada dataset kecelakaan.
+Output:
+data/processed/los_angeles_accidents.csv
 
 ---
 
-# Project Structure
+## 📁 Struktur Direktori
 
-Repositori ini menggunakan struktur proyek machine learning yang mengikuti praktik industri.
-
-```
-MLOps-Accident-Risk-Prediction
+MLOps-Accident-Risk-Prediction/
 │
-├── data
-│   ├── raw
-│   │   └── dataset asli
-│   │
-│   └── processed
-│       └── dataset yang sudah diproses
+├── data/
+│   ├── raw/
+│   │   └── batch/
+│   ├── processed/
 │
-├── notebooks
-│   └── eda.ipynb
+├── src/
+│   └── data/
+│       ├── ingest_data.py
+│       ├── load_data.py
+│       ├── preprocess.py
 │
-├── src
-│   ├── data
-│   │   ├── load_data.py
-│   │   └── preprocess.py
-│   │
-│   ├── features
-│   │   └── build_features.py
-│   │
-│   ├── models
-│   │   ├── train_model.py
-│   │   └── evaluate_model.py
-│   │
-│   └── inference
-│       └── predict.py
+├── scripts/
+│   └── run_pipeline.py
 │
-├── tests
-│   └── test_model.py
-│
-├── configs
-│   └── config.yaml
-│
-├── scripts
-│
-├── requirements.txt
 ├── README.md
-└── LICENSE
-```
+└── .gitignore
 
 ---
 
-# Explanation of Each Folder
+## ▶️ Cara Menjalankan
 
-### data/
+1. Data Ingestion (Simulasi Dinamis)
+python -m src.data.ingest_data
 
-Folder ini digunakan untuk menyimpan dataset proyek.
+2. Preprocessing
+python -m src.data.preprocess
 
-* **raw/**
-  Berisi dataset asli yang belum diproses.
-
-* **processed/**
-  Berisi dataset yang sudah melalui tahap preprocessing.
-
----
-
-### notebooks/
-
-Folder ini berisi notebook eksplorasi data.
-
-Notebook digunakan untuk:
-
-* eksplorasi dataset
-* visualisasi data
-* eksperimen awal model
+3. Full Pipeline
+python -m scripts.run_pipeline
 
 ---
 
-### src/
+## 🧠 Konsep Utama
 
-Folder ini berisi kode utama proyek machine learning.
-
-Struktur di dalamnya dipisahkan berdasarkan fungsi pipeline.
-
-#### src/data/
-
-Digunakan untuk proses loading dan preprocessing data.
-
-Contoh:
-
-* membaca dataset
-* membersihkan data
-* transformasi awal
-
-#### src/features/
-
-Digunakan untuk proses **feature engineering**, yaitu membangun fitur yang lebih informatif dari data mentah.
-
-#### src/models/
-
-Berisi kode untuk proses machine learning seperti:
-
-* training model
-* evaluasi model
-
-#### src/inference/
-
-Digunakan untuk melakukan prediksi menggunakan model yang sudah dilatih.
+- Data Dinamis (Simulasi): Data dibagi per bulan untuk mensimulasikan aliran data bertahap
+- Reproducibility: Pipeline dapat dijalankan ulang dengan hasil konsisten
+- Modular Code: Setiap proses dipisah (ingestion, preprocessing, pipeline)
+- MLOps Ready: Siap dikembangkan ke tahap machine learning
 
 ---
 
-### tests/
+## 📊 Dataset
 
-Folder ini digunakan untuk menulis unit test agar kode tetap stabil saat proyek berkembang.
-
----
-
-### configs/
-
-Folder ini menyimpan konfigurasi proyek seperti:
-
-* parameter model
-* lokasi dataset
-* konfigurasi pipeline
+Sumber:
+https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents
 
 ---
 
-### scripts/
+## ✨ Kesimpulan
 
-Folder ini dapat digunakan untuk menyimpan script tambahan seperti:
+Proyek ini berhasil mengimplementasikan pipeline data MLOps dengan:
+- Data ingestion dinamis (simulasi)
+- Automasi preprocessing
+- Struktur modular dan scalable
 
-* automation
-* pipeline execution
-* data pipeline
-
----
-
-# Branching Strategy (GitHub Flow)
-
-Repositori ini menggunakan **GitHub Flow** sebagai strategi pengelolaan kode.
-
-Langkah workflow:
-
-1. Membuat branch baru dari `main`
-2. Mengembangkan fitur atau eksperimen pada branch tersebut
-3. Melakukan commit perubahan
-4. Membuat Pull Request
-5. Melakukan merge ke branch `main` setelah validasi
-
-Contoh branch pada proyek ini:
-
-```
-feat/initial-eda
-```
-
-Branch ini digunakan untuk melakukan eksplorasi data awal sebelum pengembangan model machine learning.
-
----
-
-# Initial Experiment
-
-Eksperimen awal dilakukan menggunakan notebook:
-
-```
-notebooks/eda.ipynb
-```
-
-Notebook ini digunakan untuk:
-
-* memahami struktur dataset
-* melakukan eksplorasi fitur
-* mengidentifikasi pola awal pada data kecelakaan.
-
----
-
-# Future Development
-
-Pengembangan selanjutnya dari proyek ini akan mencakup:
-
-* feature engineering lanjutan
-* training model machine learning
-* evaluasi performa model
-* implementasi pipeline MLOps
-* deployment model untuk inference
-
----
-
-# License
-
-Proyek ini menggunakan lisensi **MIT License** yang memungkinkan penggunaan dan pengembangan ulang secara bebas dengan tetap mencantumkan atribusi kepada pengembang asli.
+Sistem ini siap dikembangkan ke tahap machine learning dan continual learning.
