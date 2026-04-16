@@ -101,3 +101,19 @@ Proyek ini berhasil mengimplementasikan pipeline data MLOps dengan:
 - Struktur modular dan scalable
 
 Sistem ini siap dikembangkan ke tahap machine learning dan continual learning.
+
+## 🔄 Data Versioning dengan DVC
+
+Proyek ini menggunakan DVC untuk melacak perubahan dataset tanpa membebani Git.
+
+Alur versioning:
+1. Dataset awal diambil dan disimpan sebagai batch pertama (2016-06)
+2. Data baru ditambahkan melalui ingestion (2016-07)
+3. Setiap versi dataset dilacak menggunakan file .dvc
+4. Git digunakan untuk melacak perubahan metadata, bukan data besar
+
+Contoh versi dataset:
+- accidents_2016-06.csv (versi awal)
+- accidents_2016-07.csv (versi terbaru)
+
+Dengan pendekatan ini, sistem mampu mensimulasikan aliran data dinamis untuk mendukung Continual Learning.

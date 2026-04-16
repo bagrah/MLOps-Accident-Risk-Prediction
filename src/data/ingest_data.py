@@ -15,21 +15,23 @@ def ingest_data(nrows=50000):
     
     print(f"Total data LA: {df.shape}")
     
-    # 🔥 Ambil bulan pertama yang ada
+    # Ambil periode per bulan
     df['year_month'] = df['Start_Time'].dt.to_period('M')
     
-    first_period = df['year_month'].min()
+    # Ambil semua periode lalu pilih bulan ke-2
+    all_periods = sorted(df['year_month'].unique())
+    selected_period = all_periods[1]  # bulan ke-2
     
-    print(f"Selected period: {first_period}")
+    print(f"Selected period: {selected_period}")
     
-    df_month = df[df['year_month'] == first_period]
+    df_month = df[df['year_month'] == selected_period]
     
-    print(f"Data for {first_period}: {df_month.shape}")
+    print(f"Data for {selected_period}: {df_month.shape}")
     
-    # Simpan
+    # Simpan hasil
     os.makedirs("data/raw/batch", exist_ok=True)
     
-    output_file = f"data/raw/batch/accidents_{first_period}.csv"
+    output_file = f"data/raw/batch/accidents_{selected_period}.csv"
     df_month.to_csv(output_file, index=False)
     
     print(f"Saved to {output_file}")
