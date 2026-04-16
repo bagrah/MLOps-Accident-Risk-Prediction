@@ -1,0 +1,5 @@
+outs:
+- md5: 4dfd7fb8d72f057d2ca2165fe8ced047
+  size: 289514
+  hash: md5
+  path: accidents_2016-07.csv
