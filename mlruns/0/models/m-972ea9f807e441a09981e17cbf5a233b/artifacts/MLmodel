@@ -1,0 +1,23 @@
+artifact_path: /workspaces/MLOps-Accident-Risk-Prediction/mlruns/0/models/m-972ea9f807e441a09981e17cbf5a233b/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.19
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+    skops_trusted_types: null
+mlflow_version: 3.11.1
+model_id: m-972ea9f807e441a09981e17cbf5a233b
+model_size_bytes: 3002298
+model_uuid: m-972ea9f807e441a09981e17cbf5a233b
+prompts: null
+run_id: a4652b6c29c7486b93ed69f875cf335f
+utc_time_created: '2026-04-23 14:13:34.859052'
