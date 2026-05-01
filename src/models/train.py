@@ -53,3 +53,4 @@ if __name__ == "__main__":
     train(n_estimators=50)
     train(n_estimators=100)
     train(n_estimators=200)
+    train(n_estimators=300)

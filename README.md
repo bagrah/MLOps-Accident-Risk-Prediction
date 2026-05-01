@@ -117,3 +117,20 @@ Contoh versi dataset:
 - accidents_2016-07.csv (versi terbaru)
 
 Dengan pendekatan ini, sistem mampu mensimulasikan aliran data dinamis untuk mendukung Continual Learning.
+
+## Model Deployment Information
+
+Model yang saat ini digunakan untuk proses inferensi adalah:
+
+- **Model Name**: accident-severity-model  
+- **Version**: 2  
+- **Alias**: production  
+
+Model ini dipilih berdasarkan hasil eksperimen menggunakan MLflow, di mana konfigurasi dengan parameter `n_estimators = 200` menghasilkan performa terbaik dengan nilai akurasi tertinggi dibandingkan dengan eksperimen lainnya.
+
+Model telah melalui proses versioning dan diberi label **production**, yang menandakan bahwa model tersebut telah siap digunakan untuk kebutuhan inferensi.
+
+Proses pemanggilan model dilakukan menggunakan MLflow dengan perintah:
+
+```python
+mlflow.pyfunc.load_model("models:/accident-severity-model@production")

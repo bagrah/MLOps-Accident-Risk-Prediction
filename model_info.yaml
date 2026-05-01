@@ -1,0 +1,9 @@
+model_name: accident-severity-model
+version: 2
+alias: production
+
+data_source: data/raw/batch/accidents_2016-07.csv
+
+notes: |
+  Model ini merupakan versi terbaik berdasarkan hasil eksperimen MLflow.
+  Menggunakan data bulan terbaru (2016-07).
