@@ -3,6 +3,7 @@ import mlflow
 import mlflow.sklearn
 
 mlflow.set_tracking_uri("file:./mlruns")
+mlflow.set_experiment("accident-severity-experiment")
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
