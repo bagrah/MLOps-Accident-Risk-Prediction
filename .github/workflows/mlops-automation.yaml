@@ -26,6 +26,7 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
+          pip install mlflow
 
       - name: Run Tests
         run: pytest
