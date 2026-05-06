@@ -56,7 +56,6 @@ def train(n_estimators=100):
 
 
 if __name__ == "__main__":
-    # ambil hasil terbaik dari beberapa eksperimen
     acc1 = train(n_estimators=50)
     acc2 = train(n_estimators=100)
     acc3 = train(n_estimators=200)
@@ -66,8 +65,6 @@ if __name__ == "__main__":
 
     print("Best Accuracy:", best_acc)
 
-mlflow.sklearn.log_model(model, "model")
-
-    # 🔥 THRESHOLD VALIDATION
+    # threshold validation
     if best_acc < 0.50:
         raise Exception("Model performance below threshold!")
