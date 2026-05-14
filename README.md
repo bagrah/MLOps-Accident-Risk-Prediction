@@ -134,3 +134,39 @@ Proses pemanggilan model dilakukan menggunakan MLflow dengan perintah:
 
 ```python
 mlflow.pyfunc.load_model("models:/accident-severity-model@production")
+
+LK-09 Docker Compose Orchestration
+
+Project ini menggunakan Docker Compose untuk menjalankan beberapa layanan machine learning secara bersamaan.
+
+Services
+api-service → menjalankan inferensi model machine learning.
+mlflow-server → menjalankan MLflow Tracking Server untuk metadata dan model registry.
+
+Kedua service terhubung menggunakan custom bridge network Docker.
+
+Menjalankan Sistem
+
+Pastikan Docker Desktop sudah aktif.
+
+Jalankan seluruh service:
+
+docker compose up -d
+
+Melihat status container:
+
+docker compose ps
+
+Menghentikan service:
+
+docker compose down
+Verifikasi
+
+MLflow dapat diakses melalui:
+
+http://localhost:5000
+Fitur Docker Compose
+Multi-service orchestration
+Custom bridge network
+Persistent volume
+Service dependency menggunakan depends_on
